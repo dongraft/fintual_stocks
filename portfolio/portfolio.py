@@ -7,10 +7,6 @@ from typing import Dict, List, Optional
 
 @dataclass
 class PriceHistory:
-    """
-    Stores historical prices for a stock (one per day).
-    """
-
     prices: Dict[str, Decimal]
 
     def get_price(self, date: Optional[str] = None) -> Decimal:
@@ -26,11 +22,6 @@ class PriceHistory:
 
 @dataclass
 class TransactionHistory:
-    """
-    Stores transactions and maintains a cumulative total (daily_accumulated).
-    Assumes transactions are added sequentially.
-    """
-
     daily_accumulated: Dict[str, Decimal] = field(default_factory=dict)
     _last_total: Decimal = field(default=Decimal("0"), init=False)
 
@@ -53,10 +44,6 @@ class TransactionHistory:
 
 
 class Stock:
-    """
-    Represents a stock with its price and transaction history.
-    """
-
     def __init__(self, ticker: str, price_history: PriceHistory):
         self.ticker = ticker
         self.price_history = price_history
