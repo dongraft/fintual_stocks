@@ -41,15 +41,15 @@ class TransactionHistory:
     def effective_shares(self, date: Optional[str] = None) -> Decimal:
         if not self.daily_accumulated:
             return Decimal("0")
-        dates = sorted(self.daily_accumulated.keys())
         if date is None:
-            date = dates[-1]
-        else:
-            pos = bisect_right(dates, date)
-            if pos == 0:
-                raise ValueError(f"Date {date} not found.")
-            date = dates[pos - 1]
-        return self.daily_accumulated[date]
+            return list(self.daily_accumulated.values())[-1]
+        if date in self.daily_accumulated:
+            return self.daily_accumulated[date]
+        dates = sorted(self.daily_accumulated.keys())
+        pos = bisect_right(dates, date)
+        if pos == 0:
+            raise ValueError(f"Date {date} not found.")
+        return self.daily_accumulated[dates[pos - 1]]
 
 
 class Stock:
