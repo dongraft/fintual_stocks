@@ -18,7 +18,8 @@ repos:
     -   id: isort
         name: isort (python)
         args: ["--profile", "black", "--filter-files"]
--   repo: local
+-   repo: https://github.com/PyCQA/pylint
+    rev: v3.3.4
     hooks:
       - id: pylint
         name: pylint

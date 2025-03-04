@@ -2,10 +2,10 @@
 ignore-paths=.*/migrations
 load-plugins=
 
+[MESSAGES CONTROL]
 disable=
     bare-except,
     broad-except,
-    django-not-configured,
     fixme,
     invalid-name,
     missing-class-docstring,
@@ -25,13 +25,7 @@ disable=
     W0223,
     protected-access,
     C0302,
-    E1131,
+    E1131
 
-# Set the linting for string quotes
-string-quote=double
-triple-quote=double
-docstring-quote=double
-
-# List of builtins function names that should not be used, separated by a comma
-bad-functions=print
-max-attributes=10
+[main]
+check-quote-consistency=yes
