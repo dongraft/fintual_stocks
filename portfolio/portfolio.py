@@ -17,7 +17,7 @@ class PriceHistory:
         return self.prices[date]
 
     def available_dates(self) -> List[str]:
-        return sorted(list(self.prices.keys()))
+        return sorted(self.prices.keys())
 
 
 @dataclass
@@ -60,7 +60,7 @@ class Stock:
         return self.effective_shares(effective_date) * self.price(effective_date)
 
     def available_dates(self) -> List[str]:
-        return self.price_history.available_dates()
+        return sorted(self.price_history.available_dates())
 
     def add_transaction(self, date: str, amount: Decimal) -> None:
         self.transaction_history.add_transaction(date, amount)
