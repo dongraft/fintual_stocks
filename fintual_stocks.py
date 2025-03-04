@@ -67,11 +67,6 @@ class Stock:
 
 
 class Portfolio:
-    """
-    Manages a collection of Stock objects.
-    Assumes all stocks share the same available dates.
-    """
-
     def __init__(self):
         self.stocks: Dict[str, Stock] = {}
 
