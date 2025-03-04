@@ -1,7 +1,7 @@
 import unittest
 from decimal import Decimal
 
-from fintual_stocks import TransactionHistory
+from models import TransactionHistory
 
 
 class TestTransactionHistory(unittest.TestCase):

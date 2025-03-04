@@ -1,7 +1,7 @@
 import unittest
 from decimal import Decimal
 
-from fintual_stocks import PriceHistory
+from models import PriceHistory
 
 
 class TestPriceHistory(unittest.TestCase):
