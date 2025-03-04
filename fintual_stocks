@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ "$1" == "test" ]; then
+    docker-compose run -T app python -m unittest
+    exit 1
+fi

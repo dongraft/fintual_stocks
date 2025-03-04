@@ -1,0 +1,9 @@
+services:
+  app:
+    container_name: fintual-stocks
+    build: .
+    volumes:
+      - .:/app  # Mount the current folder into /app inside the container
+    stdin_open: true
+    tty: true
+    command: ["python", "watch.py"]
