@@ -1,14 +1,16 @@
+import time
+from bisect import bisect_right
 from dataclasses import dataclass, field
 from decimal import Decimal
-from bisect import bisect_right
-import time
 from typing import Dict, List, Optional
+
 
 @dataclass
 class PriceHistory:
     """
     Stores historical prices for a stock (one per day).
     """
+
     prices: Dict[str, Decimal]
 
     def get_price(self, date: Optional[str] = None) -> Decimal:
@@ -21,12 +23,14 @@ class PriceHistory:
     def available_dates(self) -> List[str]:
         return sorted(list(self.prices.keys()))
 
+
 @dataclass
 class TransactionHistory:
     """
     Stores transactions and maintains a cumulative total (daily_accumulated).
     Assumes transactions are added sequentially.
     """
+
     daily_accumulated: Dict[str, Decimal] = field(default_factory=dict)
     _last_total: Decimal = field(default=Decimal("0"), init=False)
 
@@ -47,10 +51,12 @@ class TransactionHistory:
             date = dates[pos - 1]
         return self.daily_accumulated[date]
 
+
 class Stock:
     """
     Represents a stock with its price and transaction history.
     """
+
     def __init__(self, ticker: str, price_history: PriceHistory):
         self.ticker = ticker
         self.price_history = price_history
@@ -72,11 +78,13 @@ class Stock:
     def add_transaction(self, date: str, amount: Decimal) -> None:
         self.transaction_history.add_transaction(date, amount)
 
+
 class Portfolio:
     """
     Manages a collection of Stock objects.
     Assumes all stocks share the same available dates.
     """
+
     def __init__(self):
         self.stocks: Dict[str, Stock] = {}
 
@@ -96,14 +104,20 @@ class Portfolio:
 
         return sum((stock.value(date) for stock in self.stocks.values()), Decimal("0"))
 
-    def profit(self, start_date: Optional[str] = None, end_date: Optional[str] = None) -> Decimal:
+    def profit(
+        self, start_date: Optional[str] = None, end_date: Optional[str] = None
+    ) -> Decimal:
         sample_stock = next(iter(self.stocks.values()))
         all_dates = sample_stock.price_history.available_dates()
         effective_start = start_date or all_dates[0]
         effective_end = end_date or all_dates[-1]
-        return self.portfolio_value(effective_end) - self.portfolio_value(effective_start)
+        return self.portfolio_value(effective_end) - self.portfolio_value(
+            effective_start
+        )
 
-    def annualized_return(self, start_date: Optional[str] = None, end_date: Optional[str] = None) -> float:
+    def annualized_return(
+        self, start_date: Optional[str] = None, end_date: Optional[str] = None
+    ) -> float:
         sample_stock = next(iter(self.stocks.values()))
         all_dates = sample_stock.price_history.available_dates()
         effective_start = start_date or all_dates[0]
